@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@react-google-maps/api": "^2.20.3",
+        "font-awesome": "^4.7.0",
         "leaflet": "^1.9.4",
         "react-calendar": "^5.1.0"
     }

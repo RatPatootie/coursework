@@ -9,6 +9,7 @@ import FeedBackCard from '@/Components/FeedBack/FeedBackCard';
 import AboutBarbershop from '@/Components/AboutBarbershop';
 
 
+
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const handleImageError = () => {
       
@@ -25,7 +26,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <PriceComponent/>
                     </div>
                     <div id="about" className="bg-cover bg-center min-h-screen w-full flex items-center flex-col justify-center border-b-2 p-4">
-                        Про барбершоп
                         <AboutBarbershop/>
                     </div>
                     
