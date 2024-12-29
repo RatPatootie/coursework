@@ -1,48 +1,43 @@
 import React, { useState } from 'react';
-
+import { usePage } from '@inertiajs/react';
 import BarberCard from '@/Components/BookingComponent/BarberCard';
 
-
-
-const Barbers = () => {
+const Barbers = ({ barberToSend }) => {
+    const { barbers } = usePage().props;
     const [selectedBarberId, setSelectedBarberId] = useState(null);
-    const barbers = [
-        { id: 1, name: 'Богдан',type:'Топ барбер',  comments: '32', rating: 4.5,img_url:'https://i.pravatar.cc/400?img=67'  },
-        { id: 2, name: 'Петро',type:'Топ барбер', comments: '12', rating: 4.0 ,img_url:'https://i.pravatar.cc/400?img=12' },
-        { id: 3, name: 'Іван',type:'Топ барбер', comments: '23', rating: 4.8 ,img_url:'https://i.pravatar.cc/400?img=60'},
-        { id: 4, name: 'Іван',type:'Топ барбер', comments: '23', rating: 4.8 ,img_url:'https://i.pravatar.cc/400?img=60'}
-    ];
+
     const handleSelectBarber = () => {
         if (selectedBarberId) {
-            console.log(`Selected barber: ${selectedBarberId}`);
-        } else {
-            console.log('No barber selected');
-        }
+            barberToSend(selectedBarberId);} 
     };
 
     return (
         <>
             <h1 className='text-3xl font-bold'>Оберіть барбера</h1>
+            <div className='flex flex-col  lg:w-3/4 sm:w-full'>
             {barbers.map(barber => (
-                <div className='p-2 w-3/4' key={barber.id}>
+                <div className='p-2 w-full' key={barber.id}>
                     <BarberCard
                         img_url={barber.img_url}
                         name={barber.name}
                         type={barber.type}
                         comments={barber.comments}
-                        rate={barber.rating}
+                        rate={barber.rate}
+                        id={barber.id}
                         isSelected={selectedBarberId === barber.id}
                         onSelect={() => setSelectedBarberId(barber.id)}
                     />
                 </div>
             ))}
-            <div className="p-4">
+            {selectedBarberId && (
+            <div className="p-4 flex justify-center">
                 <button 
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
                     onClick={handleSelectBarber}
                 >
                     Вибрати барбера
                 </button>
+            </div>)}
             </div>
         </>
     );
