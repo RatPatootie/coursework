@@ -5,7 +5,7 @@ import TimesCard from '@/Components/BookingComponent/TimesCard.jsx';
 import './calendar.css';
 import { usePage } from '@inertiajs/react';
 
-const Dates = ({dateToSend,timeToSend}) => {
+const Dates = ({selectedBarber,dateToSend,timeToSend}) => {
     const {days}= usePage().props;
     const [date, setDate] = useState(null);
     const [availableTimes, setAvailableTimes] = useState([]);
@@ -23,7 +23,7 @@ const Dates = ({dateToSend,timeToSend}) => {
         const formattedDate = newDate.toISOString().split('T')[0];
         setDate(newDate);
         dateToSend(formattedDate);
-        fetch(`/booking/available-time?date=${formattedDate}`)
+        fetch(`/booking/available-time?date=${formattedDate}&barber_id=${selectedBarber}`)
             .then(response => response.json())
             .then(data => setAvailableTimes(data))
             .catch(error => console.error('Error fetching available times:', error));

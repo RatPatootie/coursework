@@ -32,7 +32,7 @@ export default function Index({  }) {
                         </div>)}
                         {data.barber && data.services && (
                             <div className='flex flex-col items-center bg-white rounded w-full'>
-                                <Dates dateToSend={(date) => setData('date', date)} timeToSend={(time) => setData('time', time)} />
+                                <Dates dateToSend={(date) => setData('date', date)} selectedBarber={data.barber} timeToSend={(time) => setData('time', time)} />
                                 {data.barber && data.date && data.time && data.services && (
                                     <>
                                     <hr className='w-full mt-2 '/>

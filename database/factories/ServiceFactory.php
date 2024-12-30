@@ -35,7 +35,7 @@ class ServiceFactory extends Factory
         return [
             'name' => $faker->randomElement($serviceTypes),
             'price' => $faker->randomElement(range(200, 500, 50)),
-            'duration' => $faker->randomElement(range(15, 120, 15)),
+            'duration' => 30,
             'description' => $faker->sentence,
             'type' => $faker->randomElement(['haircut', 'shave', 'color', 'other']),
 

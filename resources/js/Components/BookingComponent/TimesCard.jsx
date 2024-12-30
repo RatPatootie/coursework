@@ -9,7 +9,7 @@ const TimesCard = ({ availableTimes, onTimeSelect }) => {
     };
 
     return (
-        <div className="times-card">
+        <div className="times-card flex flex-wrap justify-center">
             {availableTimes.map((time) => (
                 <button 
                     key={time.id} 

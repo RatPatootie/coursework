@@ -36,22 +36,29 @@ class BookingController extends Controller
     }
     
     public function getAvailableTimes(Request $request)
-    {   if($request->input('barbers') == null){
+    {
         try {
             $date = $request->input('date');
-            $bookedTimeSlots = Booking::where('day', $date)->pluck('start_time');
+            $fdate = date('Y-m-d', strtotime($date . ' +1 day'));
+            $barberId = $request->input('barber_id');
+
+            if ($barberId === null) {
+                $bookedTimeSlots = Booking::where('day', $fdate)->pluck('start_time')->toArray();
+            } else {
+                $bookedTimeSlots = Booking::where('day', $fdate)->where('barber_id', $barberId)->pluck('start_time')->toArray();
+            }
+
             $availableTimes = DayTime::whereNotIn('id', $bookedTimeSlots)->get(['id', 'start_time']);
-            
+
             if ($availableTimes->isEmpty()) {
                 return response()->json([]);
             }
-            
+
             return response()->json($availableTimes);
         } catch (\Exception $e) {
             Log::error('Error fetching available times: ' . $e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
-        }}
-        /////code
+        }
     }
     public function getAvailableServices(Request $request)
     {
