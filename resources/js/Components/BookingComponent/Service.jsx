@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ServiceCard from '@/Components/BookingComponent/ServiceCard';
+import ServiceCard from '@/Components/BookingComponent/ServiceCard.jsx';
 import { usePage } from '@inertiajs/react';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ const Service = ({ barberActive, serviceToSend }) => {
     };
 
     const handleSelectService = () => {
-        console.log(selectedService);
+       
         serviceToSend(selectedService);
     };
 
@@ -48,8 +48,8 @@ const Service = ({ barberActive, serviceToSend }) => {
             </div>
             {selectedService && (
                 <div className="p-4">
-                    <button 
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={handleSelectService}
                     >
                         Вибрати послугу

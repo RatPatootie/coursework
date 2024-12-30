@@ -1,32 +1,8 @@
+import { usePage } from '@inertiajs/react';
 import React from 'react';
 
 const PriceComponent = () => {
-    const services = [
-        {
-          title: 'Стрижка',
-          price: 300
-        },
-        {
-          title: 'Стрижка бороди',
-          price: 150
-        },
-        {
-          title: 'Догляд за волоссям',
-          price: 200
-        },
-        {
-            title: 'Стрижка',
-            price: 300
-          },
-          {
-            title: 'Стрижка бороди',
-            price: 150
-          },
-          {
-            title: 'Догляд за волоссям',
-            price: 200
-          }
-      ];
+    const {services} = usePage().props;
       return (
         <section className="py-12 bg-gray-900">
           <div className="max-w-6xl mx-auto px-4 text-center">
@@ -38,9 +14,9 @@ const PriceComponent = () => {
                 <h3 className="text-2xl font-semibold text-gray-80 mb-4">Простий</h3>
                 <ul>
                   {services.map((service, index) => (
-                    <li key={index} className="flex justify-between mb-6">
-                      <span className="text-xl font-medium text-white">{service.title}</span>
-                      <span className="text-xl font-medium text-white">{service.price} грн</span>
+                    <li key={index} className="flex justify-between mb-6 ">
+                      <span className="text-xl font-medium text-white mx-10">{service.name}</span>
+                      <span className="text-xl font-medium text-white mx-10">{service.price} грн</span>
                     </li>
                   ))}
                 </ul>
@@ -51,9 +27,9 @@ const PriceComponent = () => {
                 <h3 className="text-2xl font-semibold text-gray-80 mb-4">Про барбер</h3>
                 <ul>
                   {services.map((service, index) => (
-                    <li key={index} className="flex justify-between mb-6">
-                      <span className="text-xl font-medium text-white">{service.title}</span>
-                      <span className="text-xl font-medium text-white">{service.price} грн</span>
+                    <li key={index} className="flex justify-between mb-6 ">
+                      <span className="text-xl font-medium text-white mx-10">{service.name}</span>
+                      <span className="text-xl font-medium text-white mx-10">{service.price} грн</span>
                     </li>
                   ))}
                 </ul>

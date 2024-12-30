@@ -24,13 +24,9 @@ export default function UnauthenticatedLayout({auth,  children }) {
                                 </Link>
                             </div>
                             <MainLink />
+                            
                         </div>
-                        <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                            <div className="relative ms-3">
-                                <nav className="-mx-3 flex flex-1 justify-end">
-                    
-                                    <>
-                                        <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                             <NavLink
                                                 href={route('booking.index')}
                                                 active={route().current('booking.index')}
@@ -38,23 +34,102 @@ export default function UnauthenticatedLayout({auth,  children }) {
                                                 Записатися
                                             </NavLink>
                                         </div>  
-                                        <Link
+                        <div className="hidden sm:ms-6 sm:flex sm:items-center">
+                            <div className="relative ms-3">
+                                <nav className="-mx-3 flex flex-1 justify-end">
+                    
+                                    <>
+                                        
+                                        <NavLink
                                             href={route('login')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            
                                         >
                                             Увійти
-                                        </Link>
-                                        <Link
+                                        </NavLink>
+                                        <NavLink
                                             href={route('register')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                        >
+                                               >
                                             Зареєструватися
-                                        </Link>
+                                        </NavLink>
                                     </>
                                 
                                 </nav>  
                             </div>
                         </div>
+                        <div className="-me-2 flex items-center sm:hidden">
+                            <button
+                                onClick={() =>
+                                    setShowingNavigationDropdown(
+                                        (previousState) => !previousState,
+                                    )
+                                }
+                                className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
+                            >
+                                <svg
+                                    className="h-6 w-6"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        className={
+                                            !showingNavigationDropdown
+                                                ? 'inline-flex'
+                                                : 'hidden'
+                                        }
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                    <path
+                                        className={
+                                            showingNavigationDropdown
+                                                ? 'inline-flex'
+                                                : 'hidden'
+                                        }
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                         <div
+                                            className={
+                                                (showingNavigationDropdown ? 'block' : 'hidden') +
+                                                ' sm:hidden'
+                                            }
+                                        >
+                                            
+                        
+                                            <div className="border-t border-gray-200 pb-1 pt-4">
+                                                <div className="px-4">
+                                                    <div className="text-base font-medium text-gray-800">
+                                                        user.name
+                                                    </div>
+                                            
+                                                </div>
+                        
+                                                <div className="mt-3 space-y-1">
+                                                <>
+                                        
+                                                <NavLink
+                                                    href={route('login')}
+                                                    
+                                                >
+                                                    Увійти
+                                                </NavLink>
+                                                <NavLink
+                                                    href={route('register')}
+                                                    >
+                                                    Зареєструватися
+                                                </NavLink>
+                                            </>
+                                                </div>
+                                            </div>
+                                        </div>
                     </div>
                 </div>
             </nav>

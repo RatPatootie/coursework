@@ -7,7 +7,7 @@ const Slider = ({id}) => {
     const slides = [
         {
             image: image,
-            text: 'Барбершоп [Назва] – Твій стиль, твій вибір!'
+            text: 'Барбершоп  – Твій стиль, твій вибір!'
         },
         {
             image: 'https://ambassadorbs.com.ua/images/demo/home/dark_slider02.jpg',

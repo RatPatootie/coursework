@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import TimesCard from '@/Components/BookingComponent/TimesCard';
+import TimesCard from '@/Components/BookingComponent/TimesCard.jsx';
 import './calendar.css';
 import { usePage } from '@inertiajs/react';
 
@@ -10,7 +10,7 @@ const Dates = ({dateToSend,timeToSend}) => {
     const [date, setDate] = useState(null);
     const [availableTimes, setAvailableTimes] = useState([]);
     const dateObjects = days.map(day => new Date(day));
-   
+
     const tileDisabled = ({ date }) => {
         const isPastDate = date < new Date().setHours(0, 0, 0, 0);
         const isAvailableDate = dateObjects.some(
@@ -18,7 +18,7 @@ const Dates = ({dateToSend,timeToSend}) => {
         );
         return isPastDate || !isAvailableDate;
     };
-    
+
     const onChange = (newDate) => {
         const formattedDate = newDate.toISOString().split('T')[0];
         setDate(newDate);
@@ -32,7 +32,7 @@ const Dates = ({dateToSend,timeToSend}) => {
     };
 
     const onTimeSelect = (time) => {
-        console.log(`Selected time: ${time}`);
+        
         timeToSend(time);
     };
 
@@ -50,9 +50,9 @@ const Dates = ({dateToSend,timeToSend}) => {
             {date && (<>
             <h1 className='text-3xl my-3 font-bold'>Оберіть час</h1>
             <div className='p-2 md-10'>
-                <TimesCard  
-                    availableTimes={availableTimes.map(time => ({ start_time: time.start_time, id: time.id }))} 
-                    onTimeSelect={onTimeSelect} 
+                <TimesCard
+                    availableTimes={availableTimes.map(time => ({ start_time: time.start_time, id: time.id }))}
+                    onTimeSelect={onTimeSelect}
                 />
             </div>
             </>)}

@@ -1,7 +1,8 @@
+import image from '@/assets/logo.png';
 export default function ApplicationLogo() {
     return (
         <>
-        <h1>Loggo</h1>
+            <img src={image} className='w-16 h-16' alt="Application Logo" />
         </>
     );
 }

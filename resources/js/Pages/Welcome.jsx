@@ -31,7 +31,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     
                     <div id="feedback" className="bg-cover bg-center min-h-screen w-full flex items-center flex-col justify-center border-b-2 p-4">
                         <div>
-                            ВІдгуки клцієнтів
+                        <h1 className='text-3xl font-bold mb-4 mt-5'>Відгуки клієнтів</h1>
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-6 gap-4'>
                             <FeedBackCard/>
@@ -44,12 +44,12 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                        
                        
                     </div>
-                    <div id="map" className="bg-cover bg-center min-h-screen w-full flex items-center flex-col md:flex-row justify-between px-4 md:px-10 sm:px-2 lg:px-8">
-                        <div >
-                            <h1>Наше місцезнаходження</h1>
-                            <p>1-Бандери,25</p>
-                            <p>2-Бандери,26</p>
-                            <p>2-Бандери,26</p>
+                    <div id="map"  className="text-xl bg-cover bg-center min-h-screen w-full flex items-center flex-col md:flex-row justify-between px-4 md:px-10 sm:px-2 lg:px-8">
+                        <div className='flex flex-col ' >
+                            <h1>Наші локації:</h1>
+                            <p>1️⃣ вул. Бандери, 25 (біля головного корпусу університету).</p>
+                            <p>2️⃣ вул. Бандери, 10 (поруч із кафе "Затишок").</p>
+                           
                         </div>
                         
                             <Map />

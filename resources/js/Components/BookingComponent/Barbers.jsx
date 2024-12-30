@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { usePage } from '@inertiajs/react';
-import BarberCard from '@/Components/BookingComponent/BarberCard';
+import BarberCard from '@/Components/BookingComponent/BarberCard.jsx';
 
 const Barbers = ({ barberToSend }) => {
     const { barbers } = usePage().props;
@@ -8,7 +8,7 @@ const Barbers = ({ barberToSend }) => {
 
     const handleSelectBarber = () => {
         if (selectedBarberId) {
-            barberToSend(selectedBarberId);} 
+            barberToSend(selectedBarberId);}
     };
 
     return (
@@ -31,8 +31,8 @@ const Barbers = ({ barberToSend }) => {
             ))}
             {selectedBarberId && (
             <div className="p-4 flex justify-center">
-                <button 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={handleSelectBarber}
                 >
                     Вибрати барбера
