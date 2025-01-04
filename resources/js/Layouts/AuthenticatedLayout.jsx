@@ -4,7 +4,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import MainLink from '@/Components/MainLink';
 import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { use, useState } from 'react';
 
 export default function AuthenticatedLayout({  children }) {
     const user = usePage().props.auth.user;
@@ -25,14 +25,15 @@ export default function AuthenticatedLayout({  children }) {
                             </div>
                         </div>
                         <MainLink/>
-                        <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                            <NavLink
-                                href={route('booking.index')}
-                                active={route().current('booking.index')}
-                            >
-                                Записатися
-                            </NavLink>
-                        </div>  
+                        {user.role==='user'&&(
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route('booking.index')}
+                                    active={route().current('booking.index')}>
+                                        Записатися
+                                </NavLink>
+                            </div> )}
+                         
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
                             <div className="relative ms-3">
                                 <Dropdown>
@@ -40,7 +41,7 @@ export default function AuthenticatedLayout({  children }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center rounded-md border border-transparent bg-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-100 transition duration-150 ease-in-out hover:text-gray-300 focus:outline-none"
+                                                className="inline-flex items-center rounded-md border border-transparent bg-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-400 transition duration-150 ease-in-out hover:text-gray-300 focus:outline-none"
                                             >
                                                 {user.name}
 

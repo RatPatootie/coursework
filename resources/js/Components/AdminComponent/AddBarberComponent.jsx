@@ -5,6 +5,19 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+const SuccessMessage = ({ message, onClose }) => {
+    React.useEffect(() => {
+        const timer = setTimeout(onClose, 3000);
+        return () => clearTimeout(timer);
+    }, [onClose]);
+
+    return (
+        <div className="fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg">
+            {message}
+        </div>
+    );
+};
+
 
 const AddBarberComponent = () => {
     const { data, setData, post, processing,recentlySuccessful, errors, reset } = useForm({
@@ -27,7 +40,6 @@ const AddBarberComponent = () => {
     return (
         <section>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Додати Барбера</h2>
                 <p className="mt-1 text-sm text-gray-600">
                     Будь ласка, заповніть форму нижче, щоб додати нового барбера.
                 </p>
@@ -126,6 +138,8 @@ const AddBarberComponent = () => {
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Додати Барбера</PrimaryButton>
+                    {recentlySuccessful && <SuccessMessage message={"Барбера збережено"}  />}
+          
                     <Transition
                     show={recentlySuccessful}
                     enter="transition ease-in-out"

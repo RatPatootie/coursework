@@ -6,7 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Models\Booking;
 use App\Models\Service;
-
+use App\Models\Comment;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -15,7 +15,8 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'services' => Service::all(['name', 'price'])
+        'services' => Service::all(['name', 'price']),
+        'comments' => Comment::with('user', 'barber')->latest()->take(6)->get(),
     ]);
 });
 
@@ -28,5 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+require __DIR__.'/api.php';
 require __DIR__.'/booking.php';
 require __DIR__.'/auth.php';

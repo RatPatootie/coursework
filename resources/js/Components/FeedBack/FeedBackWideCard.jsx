@@ -1,18 +1,18 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 
-const FeedBackCard = ({ 
-    clientName='petro',  
-    rate=5, 
+const FeedBackWideCard = ({ 
+    clientName='petro', 
+    rate=4, 
     feedbackText='Обожнюю цей барбершоп за серівіс. Люблю.', 
     feedbackDate='2024-09-01' 
 }) => {
     const clientPhoto = `https://ui-avatars.com/api/?name=${clientName}&size=150`;
     const renderStars = () => {
+        
         const fullStars = Math.floor(rate);
         const halfStar = rate % 1 >= 0.5 ? 1 : 0;
         const emptyStars = 5 - fullStars - halfStar;
-        
 
         return (
             <>
@@ -28,22 +28,27 @@ const FeedBackCard = ({
     };
 
     return (
-        <div className="feedback-card bg-white shadow-md rounded-lg p-6 mb-4">
+        <div className="feedback-card bg-gray-100    shadow-md rounded-lg w-full p-6 mb-4">
             <div className="feedback-header flex items-center mb-4">
                 {clientPhoto && <img src={clientPhoto} alt={`${clientName}'s photo`} className="client-photo w-12 h-12 rounded-full mr-4" />}
                 <div className="client-info">
                     <h1 className="text-lg text-gray-900 font-semibold">{clientName}</h1>
+                    <div className='flex flex-row items-center justify-between'>
+                        <p className="text-yellow-500 mt-2 flex items-center">{renderStars()}</p>
+                       
+                    </div>
+                 
                 </div>
             </div>
             <div className="feedback-body mb-4">
                 <p className="text-gray-900">{feedbackText}</p>
             </div>
             <div className="feedback-footer flex items-center justify-between">
-            <p className="text-yellow-500 mt-2 flex items-center">{renderStars()} </p>
+                <p> </p>
                 <p className="feedback-date text-sm text-gray-600">{feedbackDate}</p>
             </div>
         </div>
     );
 };
 
-export default FeedBackCard;
+export default FeedBackWideCard;

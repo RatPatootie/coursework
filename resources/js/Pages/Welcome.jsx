@@ -6,16 +6,21 @@ import Map from '@/Components/Map';
 import { Head } from '@inertiajs/react';
 import PriceComponent from '@/Components/PriceComponent';
 import FeedBackCard from '@/Components/FeedBack/FeedBackCard';
+import {usePage} from '@inertiajs/react';
 import AboutBarbershop from '@/Components/AboutBarbershop';
 
 
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome({ auth }) {
     const handleImageError = () => {
       
         document.getElementById('background')?.classList.add('!hidden');
     };
-
+    const {comments} = usePage().props;
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
     return (
         <>
             <Head title="Barbershop" />
@@ -34,12 +39,15 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <h1 className='text-3xl font-bold mb-4 mt-5'>Відгуки клієнтів</h1>
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-6 gap-4'>
-                            <FeedBackCard/>
-                            <FeedBackCard/>
-                            <FeedBackCard/>
-                            <FeedBackCard/>
-                            <FeedBackCard/>
-                            <FeedBackCard/>
+                        {comments.map(comment => (
+                        <FeedBackCard
+                            key={comment.id}
+                            clientName={comment.user.name}
+                            rate={comment.comment_rate}
+                            feedbackText={comment.comment_body}
+                            feedbackDate={formatDate(comment.created_at)}
+                        />
+                    ))}
                         </div>
                        
                        

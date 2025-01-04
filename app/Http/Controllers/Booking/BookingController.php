@@ -13,6 +13,8 @@ use App\Models\Booking;
 use Illuminate\Support\Facades\Log;
 use App\Models\DayTime;
 use App\Models\User;
+use App\Mail\NewBookingMail;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -48,7 +50,14 @@ class BookingController extends Controller
                 $bookedTimeSlots = Booking::where('day', $fdate)->where('barber_id', $barberId)->pluck('start_time')->toArray();
             }
 
-            $availableTimes = DayTime::whereNotIn('id', $bookedTimeSlots)->get(['id', 'start_time']);
+            $availableTimesQuery = DayTime::whereNotIn('id', $bookedTimeSlots);
+
+            if ($date === date('Y-m-d')) {
+                $currentTime = date('H:i');
+                $availableTimesQuery->where('start_time', '>', $currentTime);
+            }
+
+            $availableTimes = $availableTimesQuery->get(['id', 'start_time']);
 
             if ($availableTimes->isEmpty()) {
                 return response()->json([]);
@@ -92,7 +101,11 @@ class BookingController extends Controller
             $booking->end_time = $validatedData['time'];
             $booking->status = 0;
             $booking->save();
+
             
+            // Send email notification
+            Mail::to(auth()->user()->email)->queue(new NewBookingMail($booking));
+
             return redirect()->route('dashboard')->with('success', 'Booking created successfully'); 
         } catch (\Exception $e) {
             Log::error('Error storing booking: ' . $e->getMessage());
@@ -102,15 +115,14 @@ class BookingController extends Controller
     }
     public function info($id)
     {
-        try {
+        
             $barber = Barber::with('services')->findOrFail($id);
+            $comments = $barber->comments()->with('user')->get();
             return Inertia::render('Booking/BarberInfo', [
                 'barber' => $barber,
+                'comments' => $comments,
             ]);
-        } catch (\Exception $e) {
-            Log::error('Error fetching barber info: ' . $e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
-        }
+        
     }
     public function show()
     {
@@ -138,7 +150,7 @@ class BookingController extends Controller
         }
     }
     public function add(Request $request){
-        try {
+        
             $validatedDataBarber = $request->validate([
                 'name' => 'required|string',
                 'surname' => 'required|string',
@@ -165,10 +177,7 @@ class BookingController extends Controller
             $barber->save();
             
             return redirect()->route('dashboard')->with('success', 'Barber added successfully');
-        } catch (\Exception $e) {
-            Log::error('Error adding barber: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Internal Server Error']);
-        }
+        
 
     }
     public function bookings(Request $request)
